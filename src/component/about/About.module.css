@@ -1,0 +1,36 @@
+.about{
+    
+        margin-top: 3.8rem;
+      display: flex;
+      background-color: grey;
+      font-size: 10px;
+      flex-direction: column;
+      text-align: center;
+      height: 14rem;
+      font-size: 100px;
+      color: white;
+      font-style: italic;
+    }
+    .about h1 {
+        display: block;
+        margin-top: 1rem;
+        font-weight: bold;
+      
+        font-size: 5rem;
+      }
+.detail{
+  max-width: 900px;
+    margin: 0 auto;
+    font-size: 22px;
+}
+.detail h2 {
+  font-family: "Metal Mania";
+  text-align: center;
+  padding: 20px;
+  font-size: 30px;}
+  img {
+    float: left;
+    margin: 20px 50px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;}
