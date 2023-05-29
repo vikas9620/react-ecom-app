@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Store.module.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Cart from '../cart/Cart';
 const Store = (props) => {
   const productsArr = [
     {
@@ -46,9 +47,7 @@ const Store = (props) => {
       <div className={classes.store}>
         <h1>The Generics</h1>
       </div>
-      <button className={classes.btn}>
-        cart <span>0</span>
-      </button>
+      <Cart></Cart>
       <div className={classes.main}>
         <h2>Music</h2>
         <div className={classes.list}>

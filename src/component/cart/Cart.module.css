@@ -1,0 +1,122 @@
+.btn{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    border: 2px solid #56CCF2;
+    border-radius: 7px;
+    background: black;
+    color: white;
+    font-style: oblique;
+  }
+
+  .cart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 20%;
+    background-color: #f8f7f7;
+    padding: 20px;
+    z-index: 12;
+    margin-top: 3rem;
+    height: 100%
+  }
+  
+  h2 {
+    margin-top: 0;
+  }
+  
+  .cancel {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: black;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .cartHeader {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .cartitem,
+  .cartprice,
+  .cartquantity {
+    flex-basis: 33%;
+  }
+  
+  .cartItems {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row; /* Updated */
+  align-items: flex-start; 
+    margin-top: 10px;
+    
+    
+  }
+  .carti{
+    display: flex;
+   margin-right: 1rem;
+    flex-direction: row; /* Updated */
+  align-items: flex-start; 
+    margin-top: 10px;
+  }
+  .item {
+    display: flex;
+    margin-left: -3.5rem;
+ 
+  }
+  
+  .item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 10px;
+    margin-right: 1rem;
+  }
+  
+  .price{
+    flex-basis: 33%;
+    text-align: center;
+    margin-left: 2rem;
+  }
+  .quantity {
+    flex-basis: 33%;
+    text-align: center;
+    margin-left: 4rem;
+  }
+  
+  .btnbtn {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 2rem;
+    border-bottom:  solid grey;
+  }
+  .amount {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .btnPurchase {
+    background-color: #1669d4;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .bottom{
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    justify-content: space-between;
+  }
