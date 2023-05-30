@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext }  from "react";
 import classes from "./Store.module.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Cart from '../cart/Cart';
+import CartContext from "../../cartcontext/CartContext";
 const Store = (props) => {
   const productsArr = [
     {
@@ -41,7 +42,12 @@ const Store = (props) => {
         "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
     },
   ];
+  const { addItem, cartItems } = useContext(CartContext);
 
+  const addToCartHandler = (product) => {
+    addItem(product);
+  };
+console.log(cartItems)
   return (
     <React.Fragment>
       <div className={classes.store}>
@@ -52,7 +58,7 @@ const Store = (props) => {
         <h2>Music</h2>
         <div className={classes.list}>
           {productsArr.map((product) => (
-            <Card style={{ width: "18rem", margin: "2rem" ,padding: '1rem'}}>
+            <Card key={product.title}  style={{ width: "18rem", margin: "2rem" ,padding: '1rem'}}>
               <Card.Title>{product.title}</Card.Title>
               <Card.Img
                 className={classes.img}
@@ -68,7 +74,7 @@ const Store = (props) => {
                 }}
               >
                 <span>{product.price}</span>
-                <Button variant="primary">Add To Cart</Button>
+                <Button variant="primary" onClick={() => addToCartHandler(product)}>Add To Cart</Button>
               </Card.Body>
             </Card>
           ))}

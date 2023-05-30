@@ -1,49 +1,21 @@
-import React, { useState } from "react";
-import classes from "./Cart.module.css";
 
-const Cart = (props) => {
-  const [show, setShow] = useState(false);
+import classes from "./Cart.module.css";
+import React, { useContext, useState } from "react";
+import CartContext from "../../cartcontext/CartContext";
+
+  const Cart = () => {
+    const { cartItems, removeItem } = useContext(CartContext);
+    const [show, setShow] = useState(false);
+ 
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const cartElements = [
-    {
-      title: "Colors",
-
-      price: 100,
-
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-
-      quantity: 2,
-    },
-
-    {
-      title: "Black and white Colors",
-
-      price: 50,
-
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-
-      quantity: 3,
-    },
-
-    {
-      title: "Yellow and Black Colors",
-
-      price: 70,
-
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-
-      quantity: 1,
-    },
-  ];
+const totalAmount = cartItems.reduce((acc, item) =>{return acc+item.price}, 0);
+console.log(totalAmount)
   return (
     <React.Fragment>
       <button className={classes.btn} onClick={handleShow}>
-        cart <span>0</span>
+        cart <span>{cartItems.length}</span>
       </button>
 
       {show && (
@@ -57,17 +29,17 @@ const Cart = (props) => {
             <span className={classes.cartprice}>PRICE</span>
             <span className={classes.cartquantity}>QUANTITY</span>
           </div>
-          {cartElements.map((element) => (
-            <div className={element.cartItems}>
+          {cartItems.map((element) => (
+            <div className={element.cartItems} key={element.title}>
             <div className={classes.carti}>
               <div className={classes.item}>
                 <img src={element.imageUrl} alt='img' /> {element.title}
               </div>
-              <div className={classes.price}>{element.price}</div>
+              <div className={classes.price}>${element.price}</div>
               <div className={classes.quantity}>{element.quantity}</div>
-              <button className={classes.btnbtn}>Remove</button>
+              <button className={classes.btnbtn}  onClick={() => removeItem(element.id)}>Remove</button>
             </div></div>
-          ))}<div className={classes.bottom}> <span className={classes.amount}>Total $0</span>
+          ))}<div className={classes.bottom}> <span className={classes.amount}>Total ${totalAmount}</span>
           <button className={classes.btnPurchase}>Purchase</button></div>
         </section>
       )}
