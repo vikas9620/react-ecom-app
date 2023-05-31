@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, Routes } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -15,9 +15,9 @@ function App() {
         <Navbar bg="dark" variant="dark" fixed="top">
           <Container className="justify-content-center">
             <Nav>
-              <Link to="/" className="nav-link">Home</Link>
-              <Link to="/store" className="nav-link">Store</Link>
-              <Link to="/about" className="nav-link">About</Link>
+              <NavLink to="/" className="nav-link">Home</NavLink>
+              <NavLink to="/store" className="nav-link">Store</NavLink>
+              <NavLink to="/about" className="nav-link">About</NavLink>
             </Nav>
           </Container>
         </Navbar>
