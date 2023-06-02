@@ -13,18 +13,20 @@ import Home from "./component/home/Home";
 import { About } from "./component/about/About";
 import "./App.css";
 import ContactUs from "./component/contact-us/ContactUs";
+import ProductDetail from "./component/ProductDetails/ProductDetail";
 function App() {
-async function contactDetailHandler(contact){
-  const response = await fetch('https://ecom-app-74ad3-default-rtdb.firebaseio.com/contact.json',{
-    method: 'POST',
-    body: JSON.stringify(contact)
-})
-const data = await response.json(contact)
+  async function contactDetailHandler(contact) {
+    const response = await fetch(
+      "https://ecom-app-74ad3-default-rtdb.firebaseio.com/contact.json",
+      {
+        method: "POST",
+        body: JSON.stringify(contact),
+      }
+    );
+    const data = await response.json(contact);
 
-console.log(data)
-}
-
-
+    console.log(data);
+  }
 
   return (
     <Router basename="/">
@@ -51,7 +53,11 @@ console.log(data)
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact-us" element={<ContactUs onAdd={contactDetailHandler}/>} />
+        <Route
+          path="/contact-us"
+          element={<ContactUs onAdd={contactDetailHandler} />}
+        />
+        <Route path="/store/:productID" element={<ProductDetail />} />
       </Routes>
       <footer>
         <div className="footer-title">The Generics</div>
