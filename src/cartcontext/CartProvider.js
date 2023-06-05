@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import CartContext from "./CartContext";
 const CartProvider = (props) => {
   const [items, setItems] = useState([]);
-
+  const initialTokenValue = localStorage.getItem('token');
+const [token, setToken] = useState(initialTokenValue)
+const userIsLoggedIn=!!token
   const addItemHandler = (item) => {
     setItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex((prevItem) => prevItem.title === item.title);
@@ -25,11 +27,19 @@ const CartProvider = (props) => {
       return updatedItems;
     });
   };
+const loginHandler=(token)=>{
+setToken(token);
+localStorage.setItem('token', token);
 
+}
   const cartContext = {
+
+    token: token,
+    isLoggedIn: userIsLoggedIn,
     cartItems: items,
     addItem: addItemHandler,
     removeItem: removeItemHandler,
+    login: loginHandler
   };
 
   return <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>;

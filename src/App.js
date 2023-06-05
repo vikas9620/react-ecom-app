@@ -5,6 +5,7 @@ import {
   NavLink,
   Routes,
 } from "react-router-dom";
+import Login from "./authentication/Login";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -45,6 +46,9 @@ function App() {
             <NavLink to="/contact-us" className="nav-link">
               Contact us
             </NavLink>
+            <NavLink to='/login' className="nav-link">
+            login
+            </NavLink>
           </Nav>
         </Container>
       </Navbar>
@@ -57,6 +61,7 @@ function App() {
           path="/contact-us"
           element={<ContactUs onAdd={contactDetailHandler} />}
         />
+        <Route path="/login" element={<Login />} />
         <Route path="/store/:productID" element={<ProductDetail />} />
       </Routes>
       <footer>
