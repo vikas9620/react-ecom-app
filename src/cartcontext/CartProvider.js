@@ -4,7 +4,7 @@ const CartProvider = (props) => {
   const [items, setItems] = useState([]);
   const initialTokenValue = localStorage.getItem('token');
 const [token, setToken] = useState(initialTokenValue)
-const userIsLoggedIn=!!token
+const [isLoggedIn, setIsLoggedIn] = useState(false)
   const addItemHandler = (item) => {
     setItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex((prevItem) => prevItem.title === item.title);
@@ -30,16 +30,23 @@ const userIsLoggedIn=!!token
 const loginHandler=(token)=>{
 setToken(token);
 localStorage.setItem('token', token);
+setIsLoggedIn(true);
 
+}
+const logoutHandler=()=>{
+  setToken(null);
+  localStorage.removeItem('token');
+  setIsLoggedIn(false);
 }
   const cartContext = {
 
     token: token,
-    isLoggedIn: userIsLoggedIn,
+    isLoggedIn: isLoggedIn,
     cartItems: items,
     addItem: addItemHandler,
     removeItem: removeItemHandler,
-    login: loginHandler
+    login: loginHandler,
+    logout: logoutHandler
   };
 
   return <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>;

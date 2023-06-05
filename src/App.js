@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Route,
   NavLink,
   Routes,
+  Navigate,
 } from "react-router-dom";
 import Login from "./authentication/Login";
 import Container from "react-bootstrap/Container";
@@ -15,7 +16,11 @@ import { About } from "./component/about/About";
 import "./App.css";
 import ContactUs from "./component/contact-us/ContactUs";
 import ProductDetail from "./component/ProductDetails/ProductDetail";
+import CartContext from "./cartcontext/CartContext";
+import Logout from "./authentication/Logout";
 function App() {
+  const { isLoggedIn } = useContext(CartContext);
+
   async function contactDetailHandler(contact) {
     const response = await fetch(
       "https://ecom-app-74ad3-default-rtdb.firebaseio.com/contact.json",
@@ -46,16 +51,19 @@ function App() {
             <NavLink to="/contact-us" className="nav-link">
               Contact us
             </NavLink>
-            <NavLink to='/login' className="nav-link">
-            login
-            </NavLink>
+            {!isLoggedIn &&
+              <NavLink to="/login" className="nav-link">
+                Login
+              </NavLink>
+             }
+           {isLoggedIn &&  <Logout />}
           </Nav>
         </Container>
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/store" element={<Store />} />
+         <Route path="/" element={<Home />} exact />
+        {isLoggedIn ? <Route path="/store" element={<Store />} />:<Route path="/store" element={<Navigate replace to="/login" />}  />}
         <Route path="/about" element={<About />} />
         <Route
           path="/contact-us"
@@ -63,6 +71,7 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/store/:productID" element={<ProductDetail />} />
+        <Route path='*' element={<Navigate replace to="/" />}  />
       </Routes>
       <footer>
         <div className="footer-title">The Generics</div>
