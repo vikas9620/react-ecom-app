@@ -1,122 +1,175 @@
+/* Add CSS transitions for smooth animations */
+
 .btn{
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 9999;
-    border: 2px solid #56CCF2;
-    border-radius: 7px;
-    background: black;
-    color: white;
-    font-style: oblique;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 9999;
+  border: 2px solid #56CCF2;
+  border-radius: 7px;
+  background: black;
+  color: white;
+  font-style: oblique;
+}
+
+
+
+.cart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  width: 20%;
+  background-color: #f8f7f7;
+  padding: 10px;
+  z-index: 12;
+  margin-top: 3rem;
+  height: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.cart.show {
+  opacity: 1;
+}
+
+.cart.hide {
+  opacity: 0;
+}
+
+/* Add hover effect for the close button */
+.cancel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: black;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cancel:hover {
+  background-color: #333;
+}
+
+/* Add styling for the cart item */
+.cartHeader {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.cartItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cartItems:hover {
+  background-color: #f0f0f0;
+}
+
+.cartitem,
+.cartprice,
+.cartquantity {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+.item {width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item img {
+  width: 30px;
+  height: 30px;
+  margin-right: 1rem;
+}
+
+.itemText {display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price {margin: 20px;
+  text-align: center;
+}
+
+.quantity {
+  text-align: center;
+}
+
+.btnbtn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease-in-out;
+  width: 30%;
+}
+
+.btnbtn:hover {
+  background-color: #cc0000;
+}
+
+
+/* Add styling for the purchase button */
+.btnPurchase {
+  width: 50%;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btnPurchase:hover {
+  background-color: #125fbb;
+}
+
+.bottom {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Add media queries for responsive design */
+@media (max-width: 768px) {
+  .cart {
+    width: 90%;
+    margin-top: 1rem;
+    padding: 10px;
   }
 
-  .cart {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    width: 20%;
-    background-color: #f8f7f7;
-    padding: 20px;
-    z-index: 12;
-    margin-top: 3rem;
-    height: 100%
-  }
-  
-  h2 {
-    margin-top: 0;
-  }
-  
   .cancel {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: black;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: white;
+    font-size: 16px;
   }
-  
-  .cartHeader {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    margin-top: 20px;
-  }
-  
-  .cartitem,
-  .cartprice,
-  .cartquantity {
-    flex-basis: 33%;
-  }
-  
-  .cartItems {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row; /* Updated */
-  align-items: flex-start; 
-    margin-top: 10px;
-    
-    
-  }
-  .carti{
-    display: flex;
-   margin-right: 1rem;
-    flex-direction: row; /* Updated */
-  align-items: flex-start; 
-    margin-top: 10px;
-  }
+
   .item {
-    display: flex;
-    margin-left: -3.5rem;
- 
+    margin-right: 0.5rem;
   }
-  
-  .item img {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 10px;
-    margin-right: 1rem;
-  }
-  
-  .price{
-    flex-basis: 33%;
-    text-align: center;
-    margin-left: 2rem;
-  }
-  .quantity {
-    flex-basis: 33%;
-    text-align: center;
-    margin-left: 4rem;
-  }
-  
+
   .btnbtn {
-    background-color: #ff0000;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-left: 2rem;
-    border-bottom:  solid grey;
+    margin-left: 0.5rem;
   }
-  .amount {
-    font-weight: bold;
-    margin-top: 20px;
-  }
-  
-  .btnPurchase {
-    background-color: #1669d4;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-  .bottom{
-    display: flex;
-    margin-top: 1rem;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+}

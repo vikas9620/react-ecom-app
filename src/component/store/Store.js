@@ -7,38 +7,42 @@ import CartContext from "../../cartcontext/CartContext";
 import { Link } from "react-router-dom";
 const Store = () => {
   const productsArr = [
-    {id: "1",
+    {
+      id: "1",
       title: "Colors",
 
       price: 100,
-
+      quantity: 1,
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
     },
 
-    {id: "2",
+    {
+      id: "2",
       title: "Black and white Colors",
 
       price: 50,
-
+      quantity: 1,
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
     },
 
-    {id: "5",
+    {
+      id: "5",
       title: "Yellow and Black Colors",
 
       price: 70,
-
+      quantity: 1,
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
     },
 
-    {id: "4",
+    {
+      id: "4",
       title: "Blue Color",
 
       price: 100,
-
+      quantity: 1,
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
     },
@@ -64,7 +68,7 @@ const Store = () => {
               style={{ width: "18rem", margin: "2rem", padding: "1rem" }}
             >
               <Card.Title>{product.title}</Card.Title>
-              <Link  to={`/store/${product.title}`}>
+              <Link to={`/store/${product.title}`}>
                 {" "}
                 <Card.Img
                   className={classes.img}

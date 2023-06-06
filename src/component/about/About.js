@@ -1,5 +1,5 @@
 import React from "react";
-import singer from "../../asset/singer.jpg"
+import singer from "../../asset/singer.jpg";
 import classes from "./About.module.css";
 export const About = (props) => {
   return (

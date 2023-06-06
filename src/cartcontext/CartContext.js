@@ -2,7 +2,7 @@ import React from "react";
 
 const CartContext = React.createContext({
   token: "token",
-userEmail: "",
+  userEmail: "",
   cartItems: [],
   addItem: (item) => {},
   removeItems: (item) => {},

@@ -12,8 +12,8 @@ const Login = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    const enteredEmail = emailRef.current.value
-    const enteredPassword = passwordRef.current.value
+    const enteredEmail = emailRef.current.value;
+    const enteredPassword = passwordRef.current.value;
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAjNm-ahOVZKpXVfdtf0qzATJ6R5AnAXH4",
       {

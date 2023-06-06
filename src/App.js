@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,18 +6,22 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { BiHome } from "react-icons/bi";
+
+import { BsBagFill, BsInfoCircleFill, BsPhone } from "react-icons/bs";
+import { RiLoginCircleFill } from "react-icons/ri";
+
 import Login from "./authentication/Login";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Store from "./component/store/Store";
-import Home from "./component/home/Home";
+
 import { About } from "./component/about/About";
 import "./App.css";
 import ContactUs from "./component/contact-us/ContactUs";
 import ProductDetail from "./component/ProductDetails/ProductDetail";
 import CartContext from "./cartcontext/CartContext";
 import Logout from "./authentication/Logout";
+const Home = React.lazy(() => import("./component/home/Home.js"));
+const Store = React.lazy(() => import("./component/store/Store.js"));
 function App() {
   const { isLoggedIn } = useContext(CartContext);
 
@@ -39,31 +43,57 @@ function App() {
       <Navbar bg="dark" variant="dark" fixed="top">
         <Container className="justify-content-center">
           <Nav>
-            <NavLink to="/" className="nav-link">
+            <Nav.Link as={NavLink} to="/" activeClassName="active" exact>
+              <BiHome className="nav-icon" />
               Home
-            </NavLink>
-            <NavLink to="/store" className="nav-link">
+            </Nav.Link>
+
+            <Nav.Link as={NavLink} activeClassName="active" to="/store">
+              <BsBagFill className="nav-icon" />
               Store
-            </NavLink>
-            <NavLink to="/about" className="nav-link">
+            </Nav.Link>
+
+            <Nav.Link as={NavLink} activeClassName="active" to="/about">
+              <BsInfoCircleFill className="nav-icon" />
               About
-            </NavLink>
-            <NavLink to="/contact-us" className="nav-link">
+            </Nav.Link>
+            <Nav.Link as={NavLink} activeClassName="active" to="/contact-us">
+              <BsPhone className="nav-icon" />
               Contact us
-            </NavLink>
-            {!isLoggedIn &&
-              <NavLink to="/login" className="nav-link">
+            </Nav.Link>
+            {!isLoggedIn && (
+              <Nav.Link as={NavLink} activeClassName="active" to="/login">
+                <RiLoginCircleFill className="nav-icon" />
                 Login
-              </NavLink>
-             }
-           {isLoggedIn &&  <Logout />}
+              </Nav.Link>
+            )}
+            {isLoggedIn && <Logout />}
           </Nav>
         </Container>
       </Navbar>
 
       <Routes>
-         <Route path="/" element={<Home />} exact />
-        {isLoggedIn ? <Route path="/store" element={<Store />} />:<Route path="/store" element={<Navigate replace to="/login" />}  />}
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Home />
+            </Suspense>
+          }
+          exact
+        />
+        {isLoggedIn ? (
+          <Route
+            path="/store"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Store />
+              </Suspense>
+            }
+          />
+        ) : (
+          <Route path="/store" element={<Navigate replace to="/login" />} />
+        )}
         <Route path="/about" element={<About />} />
         <Route
           path="/contact-us"
@@ -71,8 +101,9 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/store/:productID" element={<ProductDetail />} />
-        <Route path='*' element={<Navigate replace to="/" />}  />
+        <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
+
       <footer>
         <div className="footer-title">The Generics</div>
         <div className="footer-icons">
@@ -98,5 +129,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
