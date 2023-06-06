@@ -34,7 +34,8 @@ const Login = () => {
       })
       .then((data) => {
         console.log(data);
-        AuthCtx.login(data.idToken);
+        AuthCtx.login(data.idToken, data.email);
+        localStorage.setItem("email", data.email);
         navigate("/store");
       })
       .catch((error) => {

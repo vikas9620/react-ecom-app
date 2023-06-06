@@ -7,7 +7,7 @@ import CartContext from "../../cartcontext/CartContext";
 import { Link } from "react-router-dom";
 const Store = () => {
   const productsArr = [
-    {
+    {id: "1",
       title: "Colors",
 
       price: 100,
@@ -16,7 +16,7 @@ const Store = () => {
         "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
     },
 
-    {
+    {id: "2",
       title: "Black and white Colors",
 
       price: 50,
@@ -25,7 +25,7 @@ const Store = () => {
         "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
     },
 
-    {
+    {id: "5",
       title: "Yellow and Black Colors",
 
       price: 70,
@@ -34,7 +34,7 @@ const Store = () => {
         "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
     },
 
-    {
+    {id: "4",
       title: "Blue Color",
 
       price: 100,
