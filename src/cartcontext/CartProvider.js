@@ -8,7 +8,7 @@ const CartProvider = (props) => {
 
   const [userEmail, setUserMail] = useState("");
   const [cartData, setCartData] = useState([]);
-  const url = "31aab866416c477da39e803610f0dd13";
+ 
   const loginHandler = (token, email) => {
     setToken(token);
     localStorage.setItem("token", token);
@@ -19,13 +19,18 @@ const CartProvider = (props) => {
   const fetchCartItems = async () => {
     try {
       const response = await fetch(
-        `https://crudcrud.com/api/${url}/cart${userEmail}`
+        `https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}.json`
       );
-
+  
       if (response.ok) {
         const data = await response.json();
-        console.log(data.quantity);
-        setCartData(data);
+  
+        if (data) {
+          const cartItems = Object.values(data);
+          setCartData(cartItems);
+        } else {
+          setCartData([]);
+        }
       } else {
         console.error("Failed to retrieve cart items.");
       }
@@ -33,78 +38,148 @@ const CartProvider = (props) => {
       console.error("Error retrieving cart items:", error);
     }
   };
+  
 
   const addItemHandler = async (item) => {
-    fetchCartItems();
     try {
-      const response = await fetch(
-        `https://crudcrud.com/api/${url}/cart${userEmail}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(item),
-        }
-      );
-
+      const response = await fetch(`https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}.json`);
       if (response.ok) {
-        setCartData((prevItems) => {
-          console.log(userEmail);
-          const existingItemIndex = prevItems.findIndex(
-            (prevItem) => prevItem.id === item.id
-          );
-
-          if (existingItemIndex !== -1) {
-            // Item already exists in the cart, show alert
-            alert("Item already exists in the cart");
-            const updatedItems = [...prevItems];
-            updatedItems[existingItemIndex].quantity += 1;
-            console.log(updatedItems[existingItemIndex].quantity);
-            return updatedItems;
+        const existingItems = await response.json();
+  
+        if (existingItems) {
+          const existingItemKeys = Object.keys(existingItems);
+          const existingItemIndex = existingItemKeys.findIndex((key) => existingItems[key].id === item.id);
+  
+          if (existingItemIndex > -1) {
+            // Item already exists in the cart, update the quantity
+            const existingItemKey = existingItemKeys[existingItemIndex];
+            const existingItem = existingItems[existingItemKey];
+            existingItem.quantity += 1;
+  
+            await fetch(`https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}/${existingItemKey}.json`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(existingItem),
+            });
+  
+            const updatedItems = existingItemKeys.map((key) => {
+              if (key === existingItemKey) {
+                return existingItem;
+              }
+              return existingItems[key];
+            });
+  
+            setCartData(updatedItems);
           } else {
             // Item is new, add it to the cart with quantity 1
-            const newItem = { ...item, quantity: 1, id: item.id };
-            return [...prevItems, newItem];
+            const newItem = { ...item, quantity: 1 };
+            await fetch(`https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}.json`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(newItem),
+            });
+  
+            const updatedItems = [...existingItemKeys.map((key) => existingItems[key]), newItem];
+            setCartData(updatedItems);
           }
-        });
-        // Fetch the updated cart items after adding the item
+        } else {
+          // No existing items in the cart, add the item as a new item with quantity 1
+          const newItem = { ...item, quantity: 1 };
+          await fetch(`https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}.json`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newItem),
+          });
+  
+          setCartData([newItem]);
+        }
       } else {
-        console.error("Failed to add item to the cart.");
+        console.error("Failed to fetch cart items from the API.");
       }
     } catch (error) {
       console.error("Error adding item to the cart:", error);
     }
   };
-
-  // Function to retrieve the user's cart items from the backend API
-
+  
+  
   const removeItemHandler = async (id) => {
     try {
       const response = await fetch(
-        `https://crudcrud.com/api/${url}/cart${userEmail}/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(id),
-        }
+        `https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}.json`
       );
-
+  
       if (response.ok) {
-        setCartData((prevItems) => {
-          const updatedItems = prevItems.filter((item) => item.id !== id);
-          return updatedItems;
-        });
-        fetchCartItems();
+        const existingItems = await response.json();
+  
+        // Find the item key based on the provided id
+        const itemKey = Object.keys(existingItems).find(
+          (key) => existingItems[key].id === id
+        );
+  
+        if (itemKey) {
+          // Get the existing item from the cart
+          const existingItem = existingItems[itemKey];
+  
+          if (existingItem.quantity > 1) {
+            // Decrease the quantity if greater than 1
+            existingItem.quantity -= 1;
+  
+            // Update the existing item in the cart
+            await fetch(
+              `https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}/${itemKey}.json`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(existingItem),
+              }
+            );
+  
+            // Update the cart items by mapping over them and updating the target item
+            setCartData((prevCartItems) =>
+              prevCartItems.map((item) => {
+                if (item.id === id) {
+                  return existingItem;
+                }
+                return item;
+              })
+            );
+          } else {
+            // Remove the item from the cart if quantity becomes zero
+            await fetch(
+              `https://ecom-app-74ad3-default-rtdb.firebaseio.com/cart${userEmail}/${itemKey}.json`,
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+  
+            // Update the cart items by filtering out the removed item
+            setCartData((prevCartItems) =>
+              prevCartItems.filter((item) => item.id !== id)
+            );
+          }
+        } else {
+          console.error("Item not found in the cart.");
+        }
       } else {
-        console.error("Failed to remove item from cart.");
+        console.error("Failed to fetch cart items from the API.");
       }
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
   };
+  
+  
 
   const logoutHandler = () => {
     setToken(null);

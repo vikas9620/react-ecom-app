@@ -43,26 +43,26 @@ function App() {
       <Navbar bg="dark" variant="dark" fixed="top">
         <Container className="justify-content-center">
           <Nav>
-            <Nav.Link as={NavLink} to="/" activeClassName="active" exact>
+            <Nav.Link as={NavLink} to="/" activeclassname="active" >
               <BiHome className="nav-icon" />
               Home
             </Nav.Link>
 
-            <Nav.Link as={NavLink} activeClassName="active" to="/store">
+            <Nav.Link as={NavLink} activeclassname="active" to="/store">
               <BsBagFill className="nav-icon" />
               Store
             </Nav.Link>
 
-            <Nav.Link as={NavLink} activeClassName="active" to="/about">
+            <Nav.Link as={NavLink} activeclassname="active" to="/about">
               <BsInfoCircleFill className="nav-icon" />
               About
             </Nav.Link>
-            <Nav.Link as={NavLink} activeClassName="active" to="/contact-us">
+            <Nav.Link as={NavLink} activeclassname="active" to="/contact-us">
               <BsPhone className="nav-icon" />
-              Contact us
+              Contact
             </Nav.Link>
             {!isLoggedIn && (
-              <Nav.Link as={NavLink} activeClassName="active" to="/login">
+              <Nav.Link as={NavLink} activeclassname="active" to="/login">
                 <RiLoginCircleFill className="nav-icon" />
                 Login
               </Nav.Link>
@@ -109,18 +109,17 @@ function App() {
         <div className="footer-icons">
           <ul>
             <li>
-              <a href="https://www.youtube.com">
-                <img src="/img/6260efc8fc9a9002669d2f4ad9956cc0.jpg" alt="" />
+              <a href="https://icons8.com/icon/118497/facebook">
+              <img src="https://img.icons8.com/material-outlined/24/facebook.png" alt="facebook"/>
               </a>
             </li>
             <li>
-              <a href="https://spotify.com">
-                <img src="/img/Spotify Logo.png" alt="" />
+            <a  href="https://icons8.com/icon/G9XXzb9XaEKX/spotify"><img width="48" height="48" src="https://img.icons8.com/fluency/48/spotify.png" alt="spotify"/>
               </a>
             </li>
             <li>
               <a href="https://facebook.com">
-                <img src="/img/Facebook Logo.png" alt="" />
+              <img width="48" height="48" src="https://img.icons8.com/color/48/youtube-play.png" alt="youtube-play"/>
               </a>
             </li>
           </ul>

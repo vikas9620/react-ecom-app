@@ -1,21 +1,17 @@
 import classes from "./Cart.module.css";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import CartContext from "../../cartcontext/CartContext";
 
 const Cart = () => {
-  const { removeItem, userEmail, cartItems, fetchData } =
-    useContext(CartContext);
+  const { removeItem, userEmail, cartItems } =useContext(CartContext);
   const [show, setShow] = useState(false);
+console.log(cartItems);
 
-  useEffect(() => {
-    const timer = setTimeout(fetchData, 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const totalAmount = cartItems.reduce((acc, item) => {
-    return acc + item.price;
+    return acc + item.price*item.quantity;
   }, 0);
   console.log(userEmail);
   console.log(totalAmount);
@@ -38,7 +34,7 @@ const Cart = () => {
             <span className={classes.cartquantity}>QUANTITY</span>
           </div>
           {cartItems.map((element) => (
-            <div className={classes.cartItems} key={element._id}>
+            <div className={classes.cartItems} key={element.id}>
               <div className={classes.item}>
                 <img src={element.imageUrl} alt="img" />
                 <div className={classes.itemText}>{element.title}</div>
@@ -47,7 +43,7 @@ const Cart = () => {
               <div className={classes.quantity}>{element.quantity}</div>
               <button
                 className={classes.btnbtn}
-                onClick={() => removeItem(element._id)}
+                onClick={() => removeItem(element.id)}
               >
                 Remove
               </button>

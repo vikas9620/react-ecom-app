@@ -49,9 +49,7 @@ const Store = () => {
   ];
   const { addItem, cartItems } = useContext(CartContext);
 
-  const addToCartHandler = (product) => {
-    addItem(product);
-  };
+
   console.log(cartItems);
   return (
     <React.Fragment>
@@ -87,7 +85,7 @@ const Store = () => {
                 <span>{product.price}</span>
                 <Button
                   variant="primary"
-                  onClick={() => addToCartHandler(product)}
+                  onClick={()=>{addItem(product)}}
                 >
                   Add To Cart
                 </Button>
